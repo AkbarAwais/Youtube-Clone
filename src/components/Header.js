@@ -2,12 +2,15 @@ import React from 'react'
 import menu_icon from "../assets/menu_icon.svg"
 import youtube_logo from "../assets/youtube_logo.svg"
 import { Search, Mic, SquareUserRound } from 'lucide-react';
+import { useDispatch } from 'react-redux';
+import { toggleMenuState } from './LeftPanelComponent/toggleMenu';
 
 const Header = () => {
+    const dispatch = useDispatch();
     return (
         <div className='bg-[#0f0f0f] w-full h-14'>
             <div className='h-full w-[10%] flex'>
-                <div className='h-full w-full'>
+                <div className='h-full w-full' onClick={() => dispatch(toggleMenuState())}>
                     <img className='h-[90%] cursor-pointer w-auto object-fit p-0 white rounded-full ml-2 relative top-0.5 left-1 transition-all ease-in-out hover:bg-zinc-800' src={menu_icon} alt='menu' />
                 </div>
                 <div className='h-full w-full '>
