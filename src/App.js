@@ -1,10 +1,15 @@
+import { createBrowserRouter, RouterProvider } from 'react-router';
 import './App.css';
+import Body from './components/Body';
 
 function App() {
-    return (
-        <div className="App bg-[#0f0f0f] h-screen w-screen text-white">
-        </div>
-    );
+    const AppRouter = createBrowserRouter([
+        {
+            path: '/',
+            element: <Body />
+        }
+    ])
+    return <RouterProvider router={AppRouter} />;
 }
 
 export default App;
