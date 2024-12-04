@@ -1,37 +1,92 @@
-import React from 'react'
+import React, { useState } from 'react'
 import menu_icon from "../assets/menu_icon.svg"
 import youtube_logo from "../assets/youtube_logo.svg"
-import { Search, Mic, SquareUserRound } from 'lucide-react';
+import { Search, Mic, SquareUserRound, Cast } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { toggleMenuState } from './LeftPanelComponent/toggleMenu';
 
 const Header = () => {
     const dispatch = useDispatch();
+    const [searchQuery, setSearchQuery] = useState('');
+
     return (
-        <div className='bg-[#0f0f0f] w-full h-14'>
-            <div className='h-full w-[10%] flex'>
-                <div className='h-full w-full' onClick={() => dispatch(toggleMenuState())}>
-                    <img className='h-[90%] cursor-pointer w-auto object-fit p-0 white rounded-full ml-2 relative top-0.5 left-1 transition-all ease-in-out hover:bg-zinc-800' src={menu_icon} alt='menu' />
+        <div className='fixed top-0 left-0 right-0 bg-[#0f0f0f] h-16 flex items-center justify-between px-4 z-50'>
+            <div className='flex items-center'>
+                <div
+                    onClick={() => dispatch(toggleMenuState())}
+                    className='p-2 hover:bg-zinc-800 rounded-full cursor-pointer transition-colors'
+                >
+                    <img
+                        className='h-8 w-8 object-contain'
+                        src={menu_icon}
+                        alt='menu'
+                    />
                 </div>
-                <div className='h-full w-full '>
-                    <img className='h-[54%] w-auto relative top-3 right-3 cursor-pointer' src={youtube_logo} alt='youtube-logo' />
-                    <h1 className='relative left-5 bottom-5 font-semibold text-2xl text-slate-300 cursor-pointer'>Premium</h1>
+                <div className='flex items-center'>
+                    <img
+                        className='h-[36px] w-[90px] object-contain'
+                        src={youtube_logo}
+                        alt='youtube-logo'
+                    />
+                    <span className='text-lg text-gray-300'>YouTube</span>
                 </div>
             </div>
-            <div className='h-full w-full flex justify-center items-center'>
-                <div className='absolute top-3 left-96 ml-40'>
-                    <input type='text' className='rounded-l-full rounded-tl-full border-zinc rounded-bl-full w-[500px] border-2 h-[30px] p-4 bg-[#0f0f0f] border-zinc-700' placeholder='Search' />
-                    <button>
-                        <Search className='absolute top-0 left-96 ml-[117px] border-2 w-14 pt-[4px] pr-2 hover:bg-zinc-700 bg-zinc-800 pb-2 transition-all ease-in-out border-zinc-700 rounded-r-full rounded-tr-full rounded-br-full' size={'35px'} />
+
+            <div className='flex items-center'>
+                <div className='flex'>
+                    <input
+                        type='text'
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className='
+                            w-[500px]
+                            bg-[#0f0f0f]
+                            border-2
+                            border-zinc-700
+                            rounded-l-full
+                            px-4
+                            py-1.5
+                            outline-none
+                            focus:border-blue-500
+                        '
+                        placeholder='Search'
+                    />
+                    <button
+                        className='
+                            bg-zinc-800
+                            border-2
+                            border-zinc-700
+                            rounded-r-full
+                            px-4
+                            hover:bg-zinc-700
+                            transition-colors
+                        '
+                    >
+                        <Search className='text-white' />
                     </button>
                 </div>
-                <button className='absolute top-2.5 m-auto right-[580px] border-2 border-zinc-900 bg-zinc-800 p-1.5 mt-0 hover:bg-zinc-700 rounded-full transition-all ease-in-out'>
+                <button
+                    className='
+                        ml-4
+                        bg-zinc-800
+                        p-2
+                        rounded-full
+                        hover:bg-zinc-700
+                        transition-colors
+                    '
+                >
                     <Mic />
                 </button>
             </div>
-            <button className='absolute top-4 m-auto right-10'>
-                <SquareUserRound />
-            </button>
+
+            <div className='flex items-center space-x-4'>
+                <button className='hover:bg-zinc-800 p-2 rounded-full transition-colors'>
+                    <Cast />
+                </button>
+                <button>
+                    <SquareUserRound className='text-white/70 hover:text-white' />
+                </button>
+            </div>
         </div>
     )
 }

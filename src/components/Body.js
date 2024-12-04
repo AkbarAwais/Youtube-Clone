@@ -1,15 +1,29 @@
 import React from 'react'
-import Header from './Header'
-import LeftPanelContainer from './LeftPanelComponent/LeftPanelContainer'
 import { Provider } from 'react-redux'
+import Header from './Header'
 import AppStore from './AppStore'
+import LeftPanelContainer from "./LeftPanelComponent/LeftPanelContainer"
+import FacetListContainer from "./FacetListContainer"
+import MainVideoCardContainer from './MainVideoCardContainer'
 
 const Body = () => {
     return (
         <Provider store={AppStore}>
-            <div className='bg-[#0f0f0f] w-screen h-screen text-white'>
+            <div className='bg-[#0f0f0f] w-full h-screen flex flex-col text-white'>
+                {/* Header */}
                 <Header />
-                <LeftPanelContainer />
+
+                {/* Main Content Area */}
+                <div className='flex flex-1 overflow-hidden'>
+                    {/* Sidebar */}
+                    <LeftPanelContainer />
+
+                    {/* Video Feed / Main Content */}
+                    <div className='flex-1 overflow-y-auto'>
+                        <FacetListContainer />
+                        <MainVideoCardContainer />
+                    </div>
+                </div>
             </div>
         </Provider>
     )
