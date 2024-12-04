@@ -14,8 +14,8 @@ const FacetListContainer = () => {
     return (
         <div
             className={`
-                fixed
-                top-16
+                relative
+                top-14
                 ${isMenuCollapsed ? 'left-16' : 'left-60'}
                 right-0
                 bg-[#0f0f0f]
