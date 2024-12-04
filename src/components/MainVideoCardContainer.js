@@ -1,49 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { PlayCircle } from 'lucide-react'
 import { useSelector } from 'react-redux';
 import { LIST_VIDEOS_API } from '../constants/constants';
 import ShimmerUI from './ShimmerUI';
-
-const videoData = [
-    {
-        thumbnail: 'https://via.placeholder.com/250x140',
-        title: 'Amazing JavaScript Tutorial',
-        channel: 'Dev Channel',
-        views: '1.2M',
-        time: '3 days ago'
-    },
-    {
-        thumbnail: 'https://via.placeholder.com/250x140',
-        title: 'React 18 Advanced Concepts',
-        channel: 'React Mastery',
-        views: '850K',
-        time: '1 week ago'
-    }
-    ,
-    {
-        thumbnail: 'https://via.placeholder.com/250x140',
-        title: 'Machine Learning Roadmap 2024',
-        channel: 'Tech Insights',
-        views: '500K',
-        time: '5 days ago'
-    }
-    ,
-    {
-        thumbnail: 'https://via.placeholder.com/250x140',
-        title: 'Machine Learning Roadmap 2024',
-        channel: 'Tech Insights',
-        views: '500K',
-        time: '5 days ago'
-    }
-    ,
-    {
-        thumbnail: 'https://via.placeholder.com/250x140',
-        title: 'Machine Learning Roadmap 2024',
-        channel: 'Tech Insights',
-        views: '500K',
-        time: '5 days ago'
-    }
-];
 
 const VideoCard = ({ thumbnails, title, channelTitle, viewCount, publishedAt, videoId }) => {
     const [isHovered, setIsHovered] = useState(false);
@@ -107,7 +66,17 @@ const VideoCard = ({ thumbnails, title, channelTitle, viewCount, publishedAt, vi
                     <h3 className='text-sm font-bold line-clamp-2'>{title}</h3>
                     <p className='text-xs text-gray-400'>{channelTitle}</p>
                     <p className='text-xs text-gray-400'>
-                        {viewCount} •{' '}
+                        {
+                            function (views) {
+                                if (views >= 1_000_000) {
+                                    return `${(views / 1_000_000).toFixed(1)}M views`;
+                                } else if (views >= 1_000) {
+                                    return `${(views / 1_000).toFixed(1)}K views`;
+                                } else {
+                                    return `${views} views`;
+                                }
+                            }(viewCount)
+                        } •{' '}
                         {(() => {
                             const now = new Date();
                             const publishedDate = new Date(publishedAt);
@@ -132,15 +101,18 @@ const VideoCard = ({ thumbnails, title, channelTitle, viewCount, publishedAt, vi
     );
 };
 
-
 const MainVideoCardContainer = () => {
     const isMenuCollapsed = useSelector((store) => store.menu.menuState);
     const [youtubeVideos, setYoutubeVideos] = useState([]);
-
+    const memoizedVideos = useMemo(() => youtubeVideos, [youtubeVideos]);
     const fetchYoutubeVideos = async () => {
-        const data = await fetch(LIST_VIDEOS_API);
-        const json = await data.json();
-        setYoutubeVideos(json?.items);
+        try {
+            const data = await fetch(LIST_VIDEOS_API);
+            const json = await data.json();
+            setYoutubeVideos(json?.items || []);
+        } catch (error) {
+            console.error('Error fetching YouTube videos:', error);
+        }
     };
 
     useEffect(() => {
@@ -148,45 +120,37 @@ const MainVideoCardContainer = () => {
     }, []);
 
     return (
-        <div className={`
-            mt-32
-            ${isMenuCollapsed ? 'ml-16' : 'ml-60'}
-            p-4
-            bg-[#0f0f0f]
-            text-white
-            transition-all
-            duration-300
-        `}>
+        <div
+            className={`mt-32 ${isMenuCollapsed ? 'ml-16' : 'ml-60'} p-4 bg-[#0f0f0f] text-white transition-all duration-300`}
+        >
             {/* Grid Layout */}
             <div
                 className="
-                    grid
-                    grid-cols-1
-                    sm:grid-cols-2
-                    md:grid-cols-3
-                    lg:grid-cols-4
-                    xl:grid-cols-5
-                    gap-4
-                "
+          grid
+          grid-cols-1
+          sm:grid-cols-2
+          md:grid-cols-3
+          lg:grid-cols-4
+          xl:grid-cols-5
+          gap-4
+        "
             >
-                {/* Show Shimmer or Video Cards */}
-                {youtubeVideos.length === 0
-                    ? videoData.map((video, index) => (
-                        <ShimmerUI key={index} {...video} />
+                {/* Show Shimmer Placeholders or Video Cards */}
+                {memoizedVideos.length === 0
+                    ? Array.from({ length: 20 }).map((_, index) => (
+                        <ShimmerUI key={index} />
                     ))
-                    : youtubeVideos.map((video, index) => (
+                    : memoizedVideos.map((video, index) => (
                         <VideoCard
                             key={index}
                             {...video.snippet}
                             {...video.statistics}
                             videoId={video.id}
                         />
-
                     ))}
             </div>
         </div>
     );
 };
 
-
-export default MainVideoCardContainer
+export default MainVideoCardContainer;

@@ -19,7 +19,7 @@ const Body = () => {
                     <LeftPanelContainer />
 
                     {/* Video Feed / Main Content */}
-                    <div className='flex-1 overflow-y-auto'>
+                    <div className='flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar'>
                         <FacetListContainer />
                         <MainVideoCardContainer />
                     </div>
