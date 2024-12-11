@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Provider } from 'react-redux'
 import Header from './Header'
 import AppStore from './AppStore'
@@ -7,6 +7,7 @@ import FacetListContainer from "./FacetListContainer"
 import MainVideoCardContainer from './MainVideoCardContainer'
 
 const Body = () => {
+    const scrollRef = useRef();
     return (
         <Provider store={AppStore}>
             <div className='bg-[#0f0f0f] w-full h-screen flex flex-col text-white'>
@@ -19,9 +20,9 @@ const Body = () => {
                     <LeftPanelContainer />
 
                     {/* Video Feed / Main Content */}
-                    <div className='flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar'>
+                    <div ref={scrollRef} className='flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar'>
                         <FacetListContainer />
-                        <MainVideoCardContainer />
+                        <MainVideoCardContainer ref={scrollRef} />
                     </div>
                 </div>
             </div>
