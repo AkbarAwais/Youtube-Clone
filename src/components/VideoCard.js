@@ -2,14 +2,15 @@ import { PlayCircle } from 'lucide-react'
 import { useState } from 'react';
 const VideoCard = ({ thumbnails, title, channelTitle, viewCount, publishedAt, videoId }) => {
     const [isHovered, setIsHovered] = useState(false);
-    if(!videoId) return;
+    if (!videoId) return;
     return (
         <div
             className='
           w-[250px]
           cursor-pointer
           transition-transform
-          hover:scale-105
+          duration-300
+          hover:scale-125
           space-y-2
           mb-4
           relative
