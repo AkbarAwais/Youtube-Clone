@@ -16,7 +16,7 @@ const FacetListContainer = () => {
             className={`
                 relative
                 top-14
-                ${isMenuCollapsed ? 'left-16' : 'left-60'}
+                ${isMenuCollapsed ? 'left-28' : 'left-72'}
                 right-0
                 bg-[#0f0f0f]
                 flex

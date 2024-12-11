@@ -52,7 +52,8 @@ const MainVideoCardContainer = forwardRef(({ }, scrollRef) => {
           md:grid-cols-3
           lg:grid-cols-4
           xl:grid-cols-5
-          gap-4
+          ml-10
+          gap-5
         "
             >
                 {youtubeVideos?.map((video, index) => (

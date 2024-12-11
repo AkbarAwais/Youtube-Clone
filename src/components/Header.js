@@ -14,17 +14,17 @@ const Header = () => {
             <div className='flex items-center'>
                 <div
                     onClick={() => dispatch(toggleMenuState())}
-                    className='p-2 hover:bg-zinc-800 rounded-full cursor-pointer transition-colors'
+                    className='p-1 hover:bg-zinc-800 rounded-full cursor-pointer transition-colors w-max'
                 >
                     <img
-                        className='h-8 w-8 object-contain'
+                        className='h-14 lg:w-10 object-contain relative'
                         src={menu_icon}
                         alt='menu'
                     />
                 </div>
                 <div className='flex items-center'>
                     <img
-                        className='h-[36px] w-[90px] object-contain'
+                        className='h-[36px] w-[50px] object-contain'
                         src={youtube_logo}
                         alt='youtube-logo'
                     />
@@ -48,6 +48,9 @@ const Header = () => {
                             py-1.5
                             outline-none
                             focus:border-blue-500
+                            relative
+                            -right-20
+                            lg:right-0
                         '
                         placeholder='Search'
                     />

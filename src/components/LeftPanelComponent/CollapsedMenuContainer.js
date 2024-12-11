@@ -4,7 +4,7 @@ import { House, Layers2, Youtube, CirclePlay, User, Download } from 'lucide-reac
 const CollapsedMenuContainer = () => {
     return (
         <div className='w-16 ml-1 h-full mt-1 border-zinc-800 py-4 flex flex-col items-center'>
-            <div className='flex flex-col items-center space-y-2 w-full'>
+            <div className='flex flex-col items-center space-y-2 w-full ml-5'>
                 {[
                     { Icon: House, label: 'Home' },
                     { Icon: Layers2, label: 'Shorts' },
