@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { VIDEO_API } from '../../constants/constants'
 import { useNavigate, useSearchParams } from 'react-router'
+import CommentsView from './CommentsView';
 
 const MainVideoContent = () => {
     const [params] = useSearchParams();
@@ -21,8 +22,10 @@ const MainVideoContent = () => {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerPolicy="strict-origin-when-cross-origin"
                     allowFullScreen>
-
                 </iframe>
+            </div>
+            <div>
+                <CommentsView videoId={videoId} />
             </div>
         </div>
     )

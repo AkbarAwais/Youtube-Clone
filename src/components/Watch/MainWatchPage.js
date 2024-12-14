@@ -8,7 +8,7 @@ import RightVideoContent from './RightVideoContent'
 const MainWatchPage = () => {
     return (
         <Provider store={AppStore}>
-            <div className='bg-[#0f0f0f] w-full h-screen flex flex-col text-white'>
+            <div className='bg-[#0f0f0f] w-full flex flex-col text-white'>
                 <Header />
                 <MainVideoContent />
                 {/* <RightVideoContent /> */}
