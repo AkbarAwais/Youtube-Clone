@@ -4,15 +4,16 @@ import youtube_logo from "../assets/youtube_logo.svg"
 import { Search, Mic, SquareUserRound, Cast } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { toggleMenuState } from './LeftPanelComponent/toggleMenu';
+import { useNavigate } from 'react-router';
 
-const Header = () => {
+const Header = ({ isMenuRequired }) => {
     const dispatch = useDispatch();
     const [searchQuery, setSearchQuery] = useState('');
-
+    const Navigate = useNavigate();
     return (
         <div className='fixed top-0 left-0 right-0 bg-[#0f0f0f] h-16 flex items-center justify-between px-4 z-50'>
             <div className='flex items-center'>
-                <div
+                {isMenuRequired && <div
                     onClick={() => dispatch(toggleMenuState())}
                     className='p-1 hover:bg-zinc-800 rounded-full cursor-pointer transition-colors w-max'
                 >
@@ -21,8 +22,10 @@ const Header = () => {
                         src={menu_icon}
                         alt='menu'
                     />
-                </div>
-                <div className='flex items-center'>
+                </div>}
+                <div className='flex items-center cursor-pointer' onClick={() => {
+                    Navigate('/');
+                }}>
                     <img
                         className='h-[36px] w-[50px] object-contain'
                         src={youtube_logo}

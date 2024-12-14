@@ -12,7 +12,7 @@ const Body = () => {
         <Provider store={AppStore}>
             <div className='bg-[#0f0f0f] w-full h-screen flex flex-col text-white'>
                 {/* Header */}
-                <Header />
+                <Header isMenuRequired={true} />
 
                 {/* Main Content Area */}
                 <div className='flex flex-1 overflow-hidden'>

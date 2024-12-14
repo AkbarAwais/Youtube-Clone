@@ -1,22 +1,28 @@
 import { PlayCircle } from 'lucide-react'
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 const VideoCard = ({ thumbnails, title, channelTitle, viewCount, publishedAt, videoId }) => {
     const [isHovered, setIsHovered] = useState(false);
+    const Navigate = useNavigate();
     if (!videoId) return;
     return (
         <div
             className='
-          w-[250px]
-          cursor-pointer
-          transition-transform
-          duration-300
-          hover:scale-125
-          space-y-2
-          mb-4
-          relative
-        '
+            w-[250px]
+            cursor-pointer
+            transition-transform
+            duration-300
+            ease-in-out
+            hover:scale-105
+            space-y-2
+            mb-4
+            relative
+            '
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            onClick={() => {
+                Navigate('/watch?v=' + videoId)
+            }}
         >
             <div className='relative'>
                 {/* Show video or thumbnail */}
@@ -25,7 +31,6 @@ const VideoCard = ({ thumbnails, title, channelTitle, viewCount, publishedAt, vi
                         className='rounded-xl w-full h-[140px] object-cover'
                         src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&modestbranding=1&controls=0&loop=1&rel=0`}
                         title={title}
-                        frameBorder='0'
                         allow='autoplay; encrypted-media'
                         allowFullScreen
                     />

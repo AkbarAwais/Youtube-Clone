@@ -27,15 +27,17 @@ const MainVideoCardContainer = forwardRef(({ }, scrollRef) => {
         const containerHeight = scrollRef.current.clientHeight;
         const scrollHeight = scrollRef.current.scrollHeight;
 
+
         if (scrollTop + containerHeight >= scrollHeight - 1) {
             fetchYoutubeVideos();
         }
     };
     useEffect(() => {
-        scrollRef.current.addEventListener("scroll", handleScroll);
+        const ref = scrollRef.current;
+        ref.addEventListener("scroll", handleScroll);
         fetchYoutubeVideos();
         return () => {
-            scrollRef.current.removeEventListener("scroll", handleScroll);
+            ref.removeEventListener("scroll", handleScroll);
         }
     }, []);
 
